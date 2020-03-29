@@ -1,37 +1,37 @@
 'use strict'
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-    let percents = Number(percent) / (12 * 100);
-    let contributions = Number(contribution);
-    let amounts = Number(amount);
-    let nowDate = new Date();
+    const percents = Number(percent) / (12 * 100);
+    const contributions = Number(contribution);
+    const amounts = Number(amount);
+    const nowDate = new Date();
     let totalAmount;
     if (isNaN(percents)) {
-        totalAmount = `Параметр percent 
+        return `Параметр percent 
         содержит неправильное значение ${percents}`;
-    } else if (isNaN(contributions)) {
-        totalAmount = `Параметр contribution 
+    }
+    if (isNaN(contributions)) {
+        return `Параметр contribution 
         содержит неправильное значение ${contributions}`;
-    } else if (isNaN(amounts)) {
-        totalAmount = `Параметр amount 
+    }
+    if (isNaN(amounts)) {
+        return `Параметр amount 
         содержит неправильное значение ${amounts}`;
     }
 
-    let amountMonth = Math.floor((date.getTime() - nowDate) / (1000 * 60 * 60 * 24 * 30));
-    let bodyCredit = amounts -  contributions;
-    let monthlyPayment = bodyCredit * (percents + percents / ((Math.pow((1 + percents), amountMonth)) - 1));
-    console.log(monthlyPayment);
+    const amountMonth = Math.floor((date.getTime() - nowDate) / (1000 * 60 * 60 * 24 * 30));
+    const bodyCredit = amounts - contributions;
+    const monthlyPayment = bodyCredit * (percents + percents / ((Math.pow((1 + percents), amountMonth)) - 1));
     totalAmount = (amountMonth * monthlyPayment);
-    console.log(totalAmount);
     totalAmount = Number(totalAmount.toFixed(2));
 
-     return totalAmount;
+    return totalAmount;
 }
 
 function getGreeting(name) {
-    if(name == '' || name == undefined || name == null) {
-        name = 'Аноним';
+    if (name == '' || name == undefined || name == null) {
+        return `Привет, мир! Меня зовут Аноним`;
     }
-    let greeting = `Привет, мир! Меня зовут ${name}`
-     return greeting;
+    return `Привет, мир! Меня зовут ${name}`
+
 }
