@@ -22,7 +22,7 @@ class Weapon {
         if (isNaN(this.durability / this.startDurability) || ((this.durability / this.startDurability) >= 0.3)) {
             return this.attack;
         }
-            return (this.attack = this.attack / 2);
+            return (this.attack / 2);
     }
 
     isBroken() {
