@@ -11,38 +11,41 @@ function sum(...args) {
 }
 
 const compareArrays = (arr1, arr2) => {
-    return (arr1.every((elem, index) => elem === arr2[index]) && arr1.length === arr2.length);
+    arr1.every((elem, index) => elem === arr2[index]) && arr1.length === arr2.length;
 }
 
 const memorize = (fn, limit) => {
     let memory = [];
     return (...args) => {
-        if (memory.find(elem => compareArrays(elem.args, [...args])) !== undefined) {
+        const arg = memory.find(elem => compareArrays(elem.args, [...args]));
+        if (arg !== undefined) {
      //       console.log('Result is taken from memory');
-            return memory.find(elem => compareArrays(elem.args, [...args])).result;
+            return arg;
         }
+        const sum = fn(...args);
         memory.push({
             args: [...args],
-            result: fn(...args),
+            result: sum,
         })
         if (memory.length > limit) {
             memory.shift();
         }
       //  console.log(memory);
       //  console.log('Result isn`t taken from memory');
-        return fn(...args);
+        return sum;
     };
 }
 
 let arr = [ [1,2,3], [1,2], [1,2,3], [1,2], [9,5,2,4] ];
 
 const testCase = (testFunction, timer) => {
-    console.time(`${timer}`);
-    for (let i = 0; i < 100; i++) {
+    console.time(timer);
+    for (let i = 0; i < 1000; i++) {
         arr.forEach(function(elem){testFunction(elem) });
     }
-    console.timeEnd(`${timer}`);
+    console.timeEnd(timer);
 }
+
 testCase(sum, 'simple'); 
 testCase(memorize, 'better'); 
 
